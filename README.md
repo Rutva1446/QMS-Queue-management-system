@@ -1,100 +1,124 @@
-# 🎫 Queue Management System (QMS)
+### Project Structure
 
-> A comprehensive digital queue management solution designed to eliminate long wait times and streamline service delivery for organizations of any size.
+```
+queue-management-system/
+│
+├── frontend/                     # Frontend application
+│   ├── public/                   # Public assets
+│   │   ├── index.html            # Main HTML file
+│   │   └── favicon.ico           # Favicon
+│   │
+│   ├── src/                      # Source files
+│   │   ├── components/           # React/Vue components
+│   │   ├── pages/                # Page components
+│   │   ├── services/             # API service calls
+│   │   ├── App.js                # Main application file
+│   │   ├── index.js              # Entry point
+│   │   └── styles/               # CSS/SCSS files
+│   │
+│   ├── package.json              # Frontend dependencies
+│   └── .env                      # Environment variables for frontend
+│
+├── backend/                      # Backend application
+│   ├── src/                      # Source files
+│   │   ├── controllers/          # Request handlers
+│   │   ├── models/               # Database models
+│   │   ├── routes/               # API routes
+│   │   ├── middleware/           # Middleware functions
+│   │   ├── config/               # Configuration files
+│   │   ├── app.js                # Main application file
+│   │   └── server.js             # Server setup
+│   │
+│   ├── package.json              # Backend dependencies
+│   └── .env                      # Environment variables for backend
+│
+├── database/                     # Database setup
+│   ├── migrations/               # Database migration files
+│   ├── seeds/                    # Seed data files
+│   └── db_config.sql             # Database configuration and setup script
+│
+├── README.md                     # Project documentation
+└── .gitignore                    # Git ignore file
+```
 
-![Status](https://img.shields.io/badge/status-active-success)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-orange)
+### Description of Each Component
 
-## 📖 Overview
+1. **frontend/**: This directory contains all the files related to the frontend of the application.
+   - **public/**: Contains static files that are served directly.
+   - **src/**: Contains the source code for the frontend application.
+     - **components/**: Reusable UI components.
+     - **pages/**: Different pages of the application.
+     - **services/**: Functions to handle API calls to the backend.
+     - **App.js**: Main application component.
+     - **index.js**: Entry point for the React/Vue application.
+     - **styles/**: CSS or SCSS files for styling the application.
 
-QMS transforms traditional physical queuing into a modern, transparent, and efficient digital experience. The system serves three primary user groups — customers, service providers, and administrators — each with a purpose-built interface.
+2. **backend/**: This directory contains all the files related to the backend of the application.
+   - **src/**: Contains the source code for the backend application.
+     - **controllers/**: Functions that handle incoming requests and return responses.
+     - **models/**: Database models that define the structure of the data.
+     - **routes/**: API routes that define the endpoints for the application.
+     - **middleware/**: Functions that process requests before they reach the route handlers.
+     - **config/**: Configuration files for the application (e.g., database connection).
+     - **app.js**: Main application file where the Express app is configured.
+     - **server.js**: File that starts the server.
 
-## ✨ Key Features
+3. **database/**: This directory contains files related to the database setup.
+   - **migrations/**: Files that define how to create or modify database tables.
+   - **seeds/**: Files that populate the database with initial data.
+   - **db_config.sql**: SQL script to set up the database schema and initial data.
 
-### For Customers
-- 📱 Responsive web portal accessible on any device
-- 🎟️ Instant digital token generation via SMS/Email
-- 📅 Flexible booking (walk-in or scheduled appointments)
-- ⏱️ Real-time Estimated Time Remaining (ETR)
-- 🗺️ Office/desk navigation guidance
-- ♿ Priority handling for seniors and PWD
-- 🤖 AI-powered query assistance
+4. **README.md**: A markdown file that provides an overview of the project, how to set it up, and how to use it.
 
-### For Service Providers
-- 🔐 Secure, personalized login with skill-based queue views
-- ▶️ One-click "Call Next Customer" with automatic timer
-- 🔄 Seamless service transfer between desks
-- 📊 Real-time queue statistics
-- 🚨 Emergency alert button for manager assistance
-- ✅ Transaction closure tracking (Completed/Cancelled/Escalated)
+5. **.gitignore**: A file that specifies which files and directories should be ignored by Git.
 
-### For Administrators
-- 👥 Complete user creation and role management
-- 🔑 Granular permission controls
-- 🛠️ Officer skill-set configuration
-- 📋 Service master data management
-- ⏰ System operating hours configuration
-- 📜 Full audit logging for accountability
-- 💾 Automated backup and recovery
+### Setting Up the Database
 
-## 🏗️ System Architecture
+1. **MySQL Database**: You can create a MySQL database for your Queue Management System. Use the following SQL commands to set up the database:
 
-The system follows a three-tier architecture:
-- **Client Layer**: Web Portal, Kiosk, Officer Dashboard, Admin Panel
-- **Server Layer**: Web Server, Application Server, Database
-- **External Services**: SMS/Email Gateway, AI Query System, Public Display Controller
+```sql
+CREATE DATABASE queue_management;
 
-## 🛠️ Tech Stack
+USE queue_management;
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | HTML5, Tailwind CSS, JavaScript |
-| Backend | Node.js / Express.js |
-| Database | PostgreSQL |
-| Real-time | WebSocket / Socket.io |
-| Notifications | Twilio (SMS), SendGrid (Email) |
-| AI Assistant | Dialogflow / OpenAI API |
+CREATE TABLE queues (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-## 📂 Project Structure
+CREATE TABLE tickets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    queue_id INT NOT NULL,
+    ticket_number INT NOT NULL,
+    status ENUM('waiting', 'served') DEFAULT 'waiting',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (queue_id) REFERENCES queues(id)
+);
+```
 
-Describe your folder layout here once finalized (frontend/, backend/, database/, docs/)
+### Setting Up the Backend
 
-## 🚀 Getting Started
+1. **Node.js and Express**: Use Node.js and Express for the backend. Install the necessary packages:
 
-### Prerequisites
-- Node.js v16 or higher
-- PostgreSQL / MongoDB
-- npm or yarn package manager
+```bash
+cd backend
+npm init -y
+npm install express mysql2 dotenv
+```
 
-### Installation
-Step-by-step setup instructions go here
+2. **Database Connection**: Create a `config/db.js` file to handle the database connection.
 
-## 📊 User Roles
+### Setting Up the Frontend
 
-| Role | Access Level | Key Permissions |
-|------|--------------|------------------|
-| Admin | Full | System config, user management, backups |
-| Manager | High | Reports, queue restructuring |
-| Service Provider | Limited | Customer service, queue handling |
-| Customer | Public | Token generation, status tracking |
+1. **React/Vue Setup**: Use Create React App or Vue CLI to set up the frontend.
 
-## 🎯 Roadmap
+```bash
+npx create-react-app frontend
+# or for Vue
+vue create frontend
+```
 
-- [ ] Mobile app (iOS/Android)
-- [ ] Multi-branch support
-- [ ] Advanced analytics dashboard
-- [ ] Voice-based queue announcements
-- [ ] Integration with third-party CRMs
+### Conclusion
 
-## 🤝 Contributing
-
-Contributions are welcome. Please read the contribution guidelines before submitting a pull request.
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 📧 Contact
-
-For questions or support, reach out at support@qms.com
+This structure provides a clear separation of concerns, making it easier to manage and scale the application. You can further enhance this structure by adding testing directories, documentation, and other features as needed.
