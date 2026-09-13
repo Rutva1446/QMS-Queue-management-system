@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QMS - Populated Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="min-h-screen flex flex-col">
+        <main class="flex-grow container mx-auto px-4 sm:px-6 py-8">
+            <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Rajiv Kumar</h1>
+                    <p class="text-gray-600">Officer ID: SP001</p>
+                </div>
+                <button class="mt-3 sm:mt-0 w-full sm:w-auto bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg px-4 py-2 hover:bg-gray-50 transition-colors flex items-center justify-center shadow-sm">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Logout
+                </button>
+            </header>
+            
+            <div class="bg-white p-4 md:p-6 rounded-2xl shadow-lg w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="lg:col-span-1 bg-gray-50 p-6 rounded-xl text-center flex flex-col justify-center items-center border">
+                        <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Current Service Time</h2>
+                        <div id="customerTimer" class="text-6xl font-bold text-gray-900 mb-4">00:47</div>
+                        <button class="w-full bg-blue-600 text-white font-bold rounded-lg px-4 py-3 hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-md">Call Next Customer</button>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-gray-50 p-6 rounded-xl border">
+                        <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Queue Overview</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                            <div class="bg-white p-4 rounded-lg shadow-sm border">
+                                <p class="text-3xl font-bold text-blue-600" id="nowServingToken">A01</p>
+                                <p class="text-xs text-gray-500 font-medium uppercase">Now Serving</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border">
+                                <p class="text-3xl font-bold text-gray-800" id="customerCount">5</p>
+                                <p class="text-xs text-gray-500 font-medium uppercase">Customers in Line</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow-sm border">
+                                <p class="text-3xl font-bold text-gray-800" id="avgServiceTime">00:29</p>
+                                <p class="text-xs text-gray-500 font-medium uppercase">Avg. Appointment Duration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-xl border">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 px-2">Active Token Queue</h3>
+                    <div id="queueList" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                        
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white p-4 rounded-lg shadow-sm border-2 border-blue-500">
+                            <div class="flex items-center mb-2 sm:mb-0">
+                                <div class="bg-blue-100 text-blue-700 font-bold rounded-lg text-lg px-4 py-2 mr-4">A01</div>
+                                <div>
+                                    <p class="font-bold text-lg text-gray-900">Rajiv Kumar</p>
+                                    <div class="flex items-center text-sm text-gray-500 mt-1">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <span>Time Slot: 03:15 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full self-start sm:self-center">SERVING</span>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white p-4 rounded-lg shadow-sm border">
+                            <div class="flex items-center mb-2 sm:mb-0">
+                                <div class="bg-gray-100 text-gray-700 font-bold rounded-lg text-lg px-4 py-2 mr-4">A02</div>
+                                <div>
+                                    <p class="font-bold text-lg text-gray-900">Ahir Hevin</p>
+                                    <div class="flex items-center text-sm text-gray-500 mt-1">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <span>Time Slot: 03:30 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full self-start sm:self-center">IN LINE</span>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white p-4 rounded-lg shadow-sm border">
+                            <div class="flex items-center mb-2 sm:mb-0">
+                                <div class="bg-gray-100 text-gray-700 font-bold rounded-lg text-lg px-4 py-2 mr-4">A03</div>
+                                <div>
+                                    <p class="font-bold text-lg text-gray-900">Priya Sharma</p>
+                                    <div class="flex items-center text-sm text-gray-500 mt-1">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <span>Time Slot: 03:45 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full self-start sm:self-center">IN LINE</span>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white p-4 rounded-lg shadow-sm border">
+                            <div class="flex items-center mb-2 sm:mb-0">
+                                <div class="bg-gray-100 text-gray-700 font-bold rounded-lg text-lg px-4 py-2 mr-4">A04</div>
+                                <div>
+                                    <p class="font-bold text-lg text-gray-900">Vikram Singh</p>
+                                    <div class="flex items-center text-sm text-gray-500 mt-1">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <span>Time Slot: 04:00 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full self-start sm:self-center">IN LINE</span>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white p-4 rounded-lg shadow-sm border">
+                            <div class="flex items-center mb-2 sm:mb-0">
+                                <div class="bg-gray-100 text-gray-700 font-bold rounded-lg text-lg px-4 py-2 mr-4">A05</div>
+                                <div>
+                                    <p class="font-bold text-lg text-gray-900">Anjali Mehta</p>
+                                    <div class="flex items-center text-sm text-gray-500 mt-1">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <span>Time Slot: 04:15 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full self-start sm:self-center">IN LINE</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pt-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button class="bg-green-500 text-white font-bold rounded-lg p-3 hover:bg-green-600 transition shadow-md">Complete</button>
+                        <button class="bg-yellow-500 text-white font-bold rounded-lg p-3 hover:bg-yellow-600 transition shadow-md">Mark Late</button>
+                        <button class="bg-teal-500 text-white font-bold rounded-lg p-3 hover:bg-teal-600 transition shadow-md">Transfer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
